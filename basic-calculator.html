@@ -1,0 +1,128 @@
+
+<!--
+I. Understand the problem
+Input: Button click (1, +, 2., =)
+Prcess: Build an expression (1+2), evaluate it
+Output: Show the result
+
+II. Breakdown the features
+basic calculator needs:
+1. Show num on screen when clicked
+2. Show operators (+, -, *, /)
+3. Clear screen the display
+4. Evaluate the expression when = is pressed
+
+III. Thnk of Example
+Input: 2 + 3  5
+Input: 10 - 4 * 2  Output: 2 (follow math rules)
+input: 7/0 -> Error
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge</title>
+    <style>
+        body {
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .calculator {
+            background-color: black;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        #display {
+            text-align: right;
+            width: 100%;
+            height: 50px;
+            margin-bottom: 15px;
+            color: black;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+        }
+        .buttons {
+            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(4, 60px);
+            gap: 10px;
+        }
+        button {
+            padding: 15px;
+            font-size: 18px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div class="buttons">
+            <button onclick="clearDisplay('C')">C</button>
+            <button onclick="btnvalue('+')">+</button>
+            <button onclick="btnvalue('-')">-</button>
+            <button onclick="btnvalue('*')">*</button>
+
+            <button onclick="btnvalue('1')">1</button>
+            <button onclick="btnvalue('2')">2</button>
+            <button onclick="btnvalue('3')">3</button>
+            <button onclick="btnvalue('/')">/</button>
+
+            <button onclick="btnvalue('4')">4</button>
+            <button onclick="btnvalue('5')">5</button>
+            <button onclick="btnvalue('6')">6</button>
+            <button onclick="btnvalue('.')">.</button>
+
+            <button onclick="btnvalue('7')">7</button>
+            <button onclick="btnvalue('8')">8</button>
+            <button onclick="btnvalue('9')">9</button>
+            <button onclick="calculate('=')">=</button>
+
+            <button onclick="btnvalue('0')">0</button> 
+        </div>
+    </div>
+    <script>
+
+        let display = document.getElementById('display');
+
+        // Add a function to display number and operatin on the screen
+        function btnvalue (value) {
+            display.value = display.value + value;
+        }
+
+        // Add a function to clear screen click on the c button
+        function clearDisplay () {
+            display.value = '';
+        }
+
+            // Format number with commas
+        function formatNumber(num) {
+            // Convert to string with commas, only if it's a number
+            if (!isNaN(num)) {
+                return Number(num).toLocaleString();
+            }
+            return num; // if it's not a pure number (like "3+5"), return as-is
+        }
+
+        //Add a function to operate the calculate 
+        function calculate () {
+            try {
+                let result = eval(display.value);
+                display.value = formatNumber(result); // format with commas
+            } catch {
+                display.value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
